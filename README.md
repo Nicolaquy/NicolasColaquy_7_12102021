@@ -1,23 +1,35 @@
 # p7
 
-## Project setup
+## Initialisation du projet
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Activation du backend
 ```
+cd backend
+nodemon serve
+(les informations du fichier .env sont volontairement laissé visible pour faciliter la démo de la version beta)
+```
+
+### Activation du frontend
+```
+cd frontend
 npm run serve
+http://localhost:8080/
+
 ```
 
-### Compiles and minifies for production
+### Creation base de donnée
 ```
-npm run build
-```
+Creez votre base de donnée en copiant les table presentes dans backend/db.sql
+Remplassez les informations dans le fichier backend/db.js par celles de votre base de donnée:
+"  host     : '127.0.0.1',
+  user     : 'ici',
+  password : 'ici',
+  database : 'ici',
+  port     : ici"
 
-### Lints and fixes files
-```
-npm run lint
 ```
 
 ### Customize configuration
