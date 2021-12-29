@@ -40,6 +40,7 @@
               :data-bs-target="'#flush-collapse' + id"
               aria-expanded="false"
               :aria-controls="'flush-collapse' + id"
+              @click="getComments()"
             >
               Commentaires
               <!-- ({{nombre}}) -->
@@ -128,6 +129,7 @@ export default {
   created() {
     this.connectedUser();
     this.getComments();
+    window.addEventListener('scroll', this.handleScroll);
   },
 
   methods: {
@@ -193,6 +195,11 @@ export default {
         });
       }
     },
+
+        handleScroll () {
+      if (window.scrollY < 1)
+          this.getComments();
+    }
   },
 
   computed: {

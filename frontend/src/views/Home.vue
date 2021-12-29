@@ -42,6 +42,7 @@ export default {
   created() {
     this.connectedUser();
     this.getPosts();
+    window.addEventListener('scroll', this.handleScroll);
   },
 
   methods: {
@@ -75,6 +76,11 @@ export default {
           this.posts = result;
         });
     },
+
+    handleScroll () {
+      if (window.scrollY < 1)
+          this.getPosts();
+    }
   },
 };
 </script>

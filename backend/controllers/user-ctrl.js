@@ -34,7 +34,7 @@ User.find(req.body.email)
             userId: user.id,
             acces: user.accesNivel,
             token: jwt.sign({ userId: user.id, acces: user.accesNivel }, process.env.TOKEN, {
-              expiresIn: "24h",
+              expiresIn: "12h",
             }),
           });
         })
