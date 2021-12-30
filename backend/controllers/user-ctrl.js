@@ -1,36 +1,34 @@
-require('dotenv').config(); 
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const User = require("../models/User-models");
-const mysql = require("mysql");
-const db = require("../db");
+require('dotenv').config();                         
+const bcrypt = require("bcrypt");                                               // Importation bcrypt pour hashage mdp
+const jwt = require("jsonwebtoken");                                            // Importation jwt pour creation et gestion des tokens
+const User = require("../models/User-models");                                  // Importation des models User
 
 exports.signup = (req, res, next) => {
   bcrypt
-    .hash(req.body.password, 10)
+    .hash(req.body.password, 10)                                                // Hashage du passeport avec bcrypt
     .then((hash) => {
-      User.save(req.body.email, req.body.pseudo, hash)
-        .then(() => res.status(201).json({ message: "Utilisateur créé" }))
+      User.save(req.body.email, req.body.pseudo, hash)                          // Envoie de la requête a la bdd avec valeurs
+        .then(() => res.status(201).json({ message: "Utilisateur créé" }))      // Retour positif, creation de l'utilisateur
         .catch((error) =>
-          res.status(400).json({ message: "Utilisateur déja existant" })
+          res.status(400).json({ message: "Utilisateur déja existant" })        // Retour négatif, email déjà dans la bdd
         );
     })
-    .catch((error) => res.status(500).json({ error }));
+    .catch((error) => res.status(500).json({ error }));                         // Retour négatif, erreur
 };
 
 exports.login = (req, res, next) => {
-User.find(req.body.email)
+User.find(req.body.email)                                                       // Envoie de la requête a la bdd avec valeur
     .then((user) => {
-      if (!user) {
-        return res.status(401).json({ error: "utilisateur non trouvé" });
+      if (!user) {                                                              // Si email pas dans la bdd
+        return res.status(401).json({ error: "utilisateur non trouvé" });       // Retour négatif, erreur 
       }
-      bcrypt
-        .compare(req.body.password, user.password)
+      bcrypt                                                                    // Si email dans la bdd
+        .compare(req.body.password, user.password)                              // Comparaison du hash du mot de passe
         .then((valid) => {
-          if (!valid) {
-            return res.status(401).json({ error: "mot de passe incorrecte" });
+          if (!valid) {                                                         // Si hash pas identique
+            return res.status(401).json({ error: "mot de passe incorrecte" });  // Retour négatif, erreur
           }
-          res.status(200).json({
+          res.status(200).json({                                                // Si hash identique, retour positif, connexion de l'utilisateur
             userId: user.id,
             acces: user.accesNivel,
             token: jwt.sign({ userId: user.id, acces: user.accesNivel }, process.env.TOKEN, {
@@ -38,30 +36,26 @@ User.find(req.body.email)
             }),
           });
         })
-        .catch((error) => res.status(500).json({ error }));
+        .catch((error) => res.status(500).json({ error }));                     // Retour négatif, erreur
     })
-    .catch((error) => res.status(500).json({ message: "oups" }));
-};
-
-exports.modifyProfil = (req, res, next) => {
-
+    .catch((error) => res.status(500).json({ message: "oups" }));               // Retour négatif, erreur
 };
 
 exports.getOneProfil = (req, res, next) => {
-  User.getOneProfil(req.params.id)
-  .then(profil => res.status(200).json(profil))
-  .catch(error => res.status(400).json({error}))
+  User.getOneProfil(req.params.id)                                              // Envoie de la requête a la bdd avec valeur
+  .then(profil => res.status(200).json(profil))                                 // Retour positif, affichage infos utilisateur
+  .catch(error => res.status(400).json({error}))                                // Retour négatif, erreur
 };
 
 exports.getAllUsers = (req, res, next) => {
-  User.getAllProfils()
-  .then(profils => res.status(200).json(profils))
-  .catch(error => res.status(400).json({error}))
+  User.getAllProfils()                                                          // Envoie de la requête a la bdd
+  .then(profils => res.status(200).json(profils))                               // Retour positif, affichage infos utilisateurs
+  .catch(error => res.status(400).json({error}))                                // Retour négatif, erreur
 };
 
 exports.deleteProfil = (req, res, next) => {
-   User.deleteProfil(res.locals.userId)
-   .then(() => res.status(200).json('Utilisateur supprimé'))
-   .catch((error) => res.status(400).json({ error }));
+   User.deleteProfil(res.locals.userId)                                         // Envoie de la requête a la bdd avec valeur
+   .then(() => res.status(200).json('Utilisateur supprimé'))                    // Retour positif, suppression utilisateur
+   .catch((error) => res.status(400).json({ error }));                          // Retour négatif, erreur
 };
 

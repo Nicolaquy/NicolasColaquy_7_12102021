@@ -7,6 +7,7 @@ npm install
 
 ### Activation du backend
 ```
+Ouvrir terminal à la racine du projet
 cd backend
 nodemon serve
 (les informations du fichier .env sont volontairement laissé visible pour faciliter la démo de la version beta)
@@ -14,6 +15,7 @@ nodemon serve
 
 ### Activation du frontend
 ```
+Ouvrir terminal à la racine du projet
 cd frontend
 npm run serve
 http://localhost:8080/
