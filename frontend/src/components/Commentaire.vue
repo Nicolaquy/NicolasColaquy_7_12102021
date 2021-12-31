@@ -64,7 +64,7 @@ export default {
   },
 
   methods: {
-    connectedUser() {
+    connectedUser() {                                              // Fonction pour vérifier si l'utilisateur est connecté et s'il sagit d'un admin
       if (localStorage.token == undefined) {
         this.connected = false;
         console.log("Utilisateur non connecté !");
@@ -82,8 +82,7 @@ export default {
       }
     },
 
-    deleteComment() {
-
+    deleteComment() {                                             // Fonction pour effacer un commentaire
         fetch(
           "http://localhost:3000/api/posts/commentaires/" + this.id, {
             method: "DELETE",
@@ -98,7 +97,7 @@ export default {
   },
 
   computed: {
-    formattedDate() {
+    formattedDate() {                                           // Formatage de la date
       let date = new Date(this.creation_date);
       let day =
         Number(date.getDate()) >= 10 ? date.getDate() : "0" + date.getDate();

@@ -76,15 +76,15 @@ export default {
     window.addEventListener("scroll", this.closeNav);
   },
   methods: {
-    toggleMobileNav() {
+    toggleMobileNav() {                                           // Fonction pour gerer le toggle de la nav de la vue mobile
       this.mobileNav = !this.mobileNav;
     },
-    closeNav() {
+    closeNav() {                                                  // Fonction pour "fermer" la nav de la vue mobile
       if (this.mobileNav) {
         this.mobileNav = !this.mobileNav;
       }
     },
-    checkScreen() {
+    checkScreen() {                                               // Fonction pour calculer la taille de la fenetre 
       this.windwWidth = window.innerWidth;
       if (this.windwWidth <= 720) {
         this.mobile = true;
@@ -94,7 +94,7 @@ export default {
       this.mobileNav = false;
       return;
     },
-    connectedUser() {
+    connectedUser() {                                              // Fonction pour vérifier si l'utilisateur est connecté
       if (localStorage.token == undefined || localStorage.token == null) {
         this.connected = false;
         console.log("Utilisateur non connecté !");
@@ -103,7 +103,7 @@ export default {
         console.log("Utilisateur connecté !");
       }
     },
-     deconnexion(){
+     deconnexion(){                                               // Fonction pour se deconnecter
         localStorage.clear();
         location.href = '/auth';
         }

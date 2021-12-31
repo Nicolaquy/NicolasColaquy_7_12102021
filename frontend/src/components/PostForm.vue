@@ -37,7 +37,7 @@ export default {
     };
   },
   methods: {
-    changeImage(event) {
+    changeImage(event) {                                           // Fonction pour l'ajout/affichage de l'image
       this.image = event.target.files[0] || event.dataTransfer.files[0];
       let reader = new FileReader();
       reader.onload = function () {
@@ -47,7 +47,7 @@ export default {
       reader.readAsDataURL(this.image);
     },
 
-    newPost() {
+    newPost() {                                                    // Fonction pour envoyer un post
       let post = new FormData();
       post.append("description", this.description);
       post.append("image", this.image);

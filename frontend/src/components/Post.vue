@@ -43,7 +43,6 @@
               @click="getComments()"
             >
               Commentaires
-              <!-- ({{nombre}}) -->
             </a>
           </li>
         </ul>
@@ -133,7 +132,7 @@ export default {
   },
 
   methods: {
-    connectedUser() {
+    connectedUser() {                                        // Fonction pour vérifier si l'utilisateur est connecté et s'il sagit d'un admin
       if (localStorage.token == undefined) {
         this.connected = false;
         console.log("Utilisateur non connecté !");
@@ -151,7 +150,7 @@ export default {
       }
     },
 
-    getComments() {
+    getComments() {                                         // Fonction pour récuperer les commentaires
       fetch("http://localhost:3000/api/posts/" + this.id + "/commentaires", {
         headers: {
           "content-type": "application/json",
@@ -164,7 +163,7 @@ export default {
         });
     },
 
-    newComment() {
+    newComment() {                                          // Fonction pour ajouter un commentaire
       let commentaire = {
         commentaire: this.commentaire,
         publication_id: this.id,
@@ -183,7 +182,7 @@ export default {
       });
     },
 
-    deletePost() {
+    deletePost() {                                         // Fonction pour supprimer un post
       if (window.confirm("Voulez-vous vraiment supprimer ce post ?")) {
         fetch("http://localhost:3000/api/posts/" + this.id, {
           method: "DELETE",
@@ -203,7 +202,7 @@ export default {
   },
 
   computed: {
-    formattedDate() {
+    formattedDate() {                                           // Formatage de la date
       let date = new Date(this.creation_date);
       let day =
         Number(date.getDate()) >= 10 ? date.getDate() : "0" + date.getDate();

@@ -125,20 +125,14 @@ export default {
     };
   },
 
-  created() {
-    this.connectedUser();
-  },
-
   methods: {
-    // FONCTION TOOGLE
-    toggle: function () {
+    toggle () {                                               // Fonction pourgerer le toggle
       let btn = document.getElementById("come");
       btn.classList.add("fade-out-btn");
       this.visible = !this.visible;
     },
 
-    // FONCTION DE CONNEXION
-    logIn() {
+    logIn() {                                                 // Fonction de connexion
       let user = {
         email: this.email,
         password: this.password,
@@ -171,44 +165,7 @@ export default {
         });
     },
 
-    connectedUser() {
-      if (localStorage.token == undefined ) {
-        this.connected = false;
-        console.log("Utilisateur non connecté !");
-      } else {
-        this.connected = true;
-        console.log("Utilisateur connecté !");
-      }
-    },
-
-    // FONCTION D'INSCRIPTION
-/*     async signUp() {
-      let newUser = {
-        email: this.email,
-        pseudo: this.pseudo,
-        password: this.password,
-        confirmPassword: this.confirmPassword,
-      };
-      if (this.password == this.confirmPassword) {
-        this.message = "";
-        location.href = "/";
-        try {
-          await fetch("http://localhost:3000/api/users/signup", {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(newUser)
-          })
-        } catch (e) {
-          alert("Erreur:" + e);
-        }
-      } else {
-        this.message = "La confirmation du mot de passe n'est pas identique";
-      }
-    }, */
-
-        signUp() {
+        signUp() {                                                  // Fonction d'inscription
       let newUser = {
         email: this.email,
         pseudo: this.pseudo,

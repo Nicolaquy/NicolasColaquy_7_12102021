@@ -1,14 +1,14 @@
 <template>
-  <div class="home" v-if="connected">
-    <PostForm v-on:reload-post="getPosts" />
+  <div class="home" v-if="connected">                         <!-- Si utilisateur connecté -->
+    <PostForm v-on:reload-post="getPosts" />                  <!-- Affichage du composent PostForm -->
     <post
       v-on:reload-post="getPosts"
       v-for="post in posts"
       :key="post.id"
       v-bind="post"
-    ></post>
+    ></post>                                                  <!-- Affichage du composent Post -->
   </div>
-  <div class="home" v-else>
+  <div class="home" v-else>                                   <!-- Si aucun utilisateur connecté -->
     <p>
       Pour acceder aux fonctionnalités de l'application et voir les messages de
       vos collègues merci de vous connecter
@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import Post from "../components/Post.vue";
-import PostForm from "../components/PostForm.vue";
+import Post from "../components/Post.vue";                    // Importation composent Post
+import PostForm from "../components/PostForm.vue";            // Importation composent PostForm
 
 export default {
   name: "Home",
@@ -46,7 +46,7 @@ export default {
   },
 
   methods: {
-    connectedUser() {
+    connectedUser() {                                       // Fonction pour vérifier si l'utilisateur est connecté et s'il sagit d'un admin
       if (localStorage.token == undefined) {
         this.connected = false;
         console.log("Utilisateur non connecté !");
@@ -64,7 +64,7 @@ export default {
       }
     },
 
-    getPosts() {
+    getPosts() {                                            // Fonction pour récuperer les posts
       fetch("http://localhost:3000/api/posts", {
         headers: {
           "content-type": "application/json",

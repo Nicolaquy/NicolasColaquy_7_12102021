@@ -1,7 +1,7 @@
 <template>
-  <div class="profil" v-if="connected">
-    <infosProfil />
-    <PostForm v-on:reload-post="getPosts" />
+  <div class="profil" v-if="connected">                         <!-- Si utilisateur connecté -->
+    <infosProfil />                                             <!-- Affichage du composent infosProfil -->
+    <PostForm v-on:reload-post="getPosts" />                    <!-- Affichage du composent PostForm -->
     <div class="posts">
       <h3>Mes Posts:</h3>
       <post
@@ -9,10 +9,10 @@
         :key="post.id"
         v-bind="post"
         v-on:reload-post="getPosts"
-      ></post>
+      ></post>                                                  <!-- Affichage du composent Post -->
     </div>
   </div>
-  <div class="profil" v-else>
+  <div class="profil" v-else>                                   <!-- Si aucun utilisateur connecté -->
     <p>
       Pour acceder aux fonctionnalités de l'application et voir votre profil
       merci de vous connecter
@@ -24,9 +24,9 @@
 </template>
 
 <script>
-import InfosProfil from "../components/InfosProfil.vue";
-import PostForm from "../components/PostForm.vue";
-import Post from "../components/Post.vue";
+import InfosProfil from "../components/InfosProfil.vue";        // Importation composent InfoProfil
+import PostForm from "../components/PostForm.vue";              // Importation composent PostForm
+import Post from "../components/Post.vue";                      // Importation composent Post
 const id = localStorage.getItem("userId");
 const API_URL = "http://localhost:3000/api/posts/user" + id;
 
@@ -47,11 +47,12 @@ export default {
   },
 
   created() {
-    this.connectedUser(), this.getPosts();
+    this.connectedUser(), 
+    this.getPosts();
   },
 
   methods: {
-    connectedUser() {
+    connectedUser() {                                              // Fonction pour vérifier si l'utilisateur est connecté
       if (localStorage.token == undefined) {
         this.connected = false;
         console.log("Utilisateur non connecté !");
@@ -60,7 +61,7 @@ export default {
         console.log("Utilisateur connecté !");
       }
     },
-    getPosts() {
+    getPosts() {                                                   // Fonction pour récuperer les posts
       fetch(API_URL, {
         headers: {
           "content-type": "application/json",

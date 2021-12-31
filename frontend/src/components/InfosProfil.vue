@@ -7,12 +7,6 @@
     <button class="btn btn-danger" @click="deleteUser">
       Supprimer mon profil
     </button>
-
-    <!--     <button @click="infosToggle">Un petit mot sur toi ?</button>
-    <div class="infos">
-      <input type="text" class="infosTexte" />
-      <a class="save"><i class="fas fa-check-circle"></i></a>
-    </div> -->
   </div>
 </template>
 
@@ -22,15 +16,6 @@ const API_URL = "http://localhost:3000/api/users/" + user_id;
 
 export default {
   name: "InfosProfil",
-
-  computed: {
-    formattedDate() {
-      let date = new Date(this.users.creation_date);
-      let day =
-        Number(date.getDate()) >= 10 ? date.getDate() : "0" + date.getDate();
-      return `${day}/${date.getMonth()}/${date.getFullYear()}`;
-    },
-  },
 
   data() {
     return {
@@ -53,7 +38,7 @@ export default {
   },
 
   methods: {
-    connectedUser() {
+    connectedUser() {                                           // Fonction pour vérifier si l'utilisateur est connecté et s'il sagit d'un admin
       if (localStorage.token == undefined) {
         this.connected = false;
         console.log("Utilisateur non connecté !");
@@ -71,7 +56,7 @@ export default {
       }
     },
 
-    deleteUser() {
+    deleteUser() {                                              // Fonction pour supprimer un utilisateur
       if (
         window.confirm(
           "La suppression de votre compte est définitive, voulez vous continuer ?"
@@ -87,6 +72,15 @@ export default {
           location.href = "/auth";
         });
       }
+    },
+  },
+
+  computed: {
+    formattedDate() {                                           // Formatage de la date
+      let date = new Date(this.users.creation_date);
+      let day =
+        Number(date.getDate()) >= 10 ? date.getDate() : "0" + date.getDate();
+      return `${day}/${date.getMonth()}/${date.getFullYear()}`;
     },
   },
 };
