@@ -5,7 +5,7 @@ let db = mysql.createConnection({
   user     : 'groupomania',
   password : 'groupomania',
   database : 'groupomania',
-  port     : 3307
+  port     : 3306
 });
 
  db.connect((err)=> {
